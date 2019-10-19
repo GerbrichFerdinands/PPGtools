@@ -21,7 +21,7 @@ NULL
 #'
 #' This function ..
 #'
-#' @param x time steps (column vector)
+#' @param t time steps (column vector) (sampling positions)
 #' @param y noisy series to be smoothed (column vector)
 #' @param lambda tuning parameter(s), numeric or ?:1 matrix.
 #' @param d order of differences (d = 1, 2, 3, ...)
@@ -41,20 +41,34 @@ NULL
 #' \dontrun{fancySum("A", list(c=51))}
 #'
 #' @export
-smoothWE <- function(x, y, lambda, d = 2){
+smoothWE <- function(y, lambda, d = 2, t){
+
     # check if input is correct
     if (is.null(dim(lambda))) lambda <- matrix(lambda)
     if (ncol(lambda) != 1) stop("dimensions of 'lambda' are incorrect \n")
 
-    m <- length(x)
+    m <- length(y)
     # E = identity matrix
     E <- diag.spam(m)
+
     # D = differences matrix, differences indicating the order of difference
 
     #D <- ddMat(E, differences = d)
-    D <- diff(E, differences = d)
+    # if(exists("x")) {
+    #     D <- ddmat(x, d = 1)
+    #     } else {
+    if(uni){
+        D <- ddMat(t)
+    } else {
+        D <- diff(E, differences = d)
+    }
+     # in case of uniform sampling}
+        # }
+
     P <- t(D) %*% D
     # (E + lambda D' D)z = y, so:
+    # z = solve(E = lambda D' D, y)
+
     z <- apply(lambda, 1, function(x) solve(E + x * P, y))
     names(z) <- names(lambda)
     return(z)
