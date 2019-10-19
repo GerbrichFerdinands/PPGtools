@@ -50,6 +50,8 @@ smoothWE <- function(x, y, lambda, d = 2){
     # E = identity matrix
     E <- diag.spam(m)
     # D = differences matrix, differences indicating the order of difference
+
+    #D <- ddMat(E, differences = d)
     D <- diff(E, differences = d)
     P <- t(D) %*% D
     # (E + lambda D' D)z = y, so:
