@@ -15,7 +15,7 @@ ddMat(x, d)
 the matrix D, divided differences. D*Y = divided differences of order d.
 }
 \description{
-ddMat
+matrix D, that constructs divided differences of order d oof y when Dy.
 }
 \details{
 

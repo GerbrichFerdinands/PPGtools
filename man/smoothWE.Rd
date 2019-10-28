@@ -4,7 +4,7 @@
 \alias{smoothWE}
 \title{smoothWE}
 \usage{
-smoothWE(y, lambda, d = 2, t)
+smoothWE(y, lambda, d = 2, t, nuni = FALSE)
 }
 \arguments{
 \item{y}{noisy series to be smoothed (column vector)}
