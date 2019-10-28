@@ -1,6 +1,6 @@
 #' ddMat
 #'
-#'
+#' matrix D, that constructs divided differences of order d oof y when Dy.
 #'
 #' @param x time steps
 #' @param d order of differences
@@ -19,22 +19,18 @@
 
 ddMat <- function(x, d){
     m <- length(x)
+    # differences matrix D
+    E <- diag.spam(m)
+    D <- diff(E, differences = d)
 
-    if(d == 0){
-        D <- diag.spam(m)
-    } else {
+    #if(nuni){
         # delta x
-        dx <- diff(x, d)
+        dx <- diff(x, differences = d)
         # V = m-1 by m-1 matrix with 1/delta x on its diagonal.
         V <- diag.spam(1/dx)
-        #diag(V) <- 1/dx
-        # todo make recursive
-        #D <- diff(diag.spam(m), differences = d)
-        D <- V %*% diff(ddMat(x = x, d = d-1))
-    }
-
-    # todo(check for other order functions: diff function maybe not suitable?)
-
+        # matrix multiplication VD
+        D <- V%*%D
+    #}
 
     return(D)
 }

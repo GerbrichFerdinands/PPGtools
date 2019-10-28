@@ -13,6 +13,7 @@
 #' @name PPGtools
 #' @keywords PPG
 #' @import spam
+#' @import ggplot2
 #' @importFrom magrittr "%>%"
 NULL
 
@@ -41,8 +42,8 @@ NULL
 #' \dontrun{fancySum("A", list(c=51))}
 #'
 #' @export
-smoothWE <- function(y, lambda, d = 2, t){
-
+smoothWE <- function(y, lambda, d = 2, t, nuni = FALSE){
+# maybe default for t = 1:length(y) (is this possible in r function input?)
     # check if input is correct
     if (is.null(dim(lambda))) lambda <- matrix(lambda)
     if (ncol(lambda) != 1) stop("dimensions of 'lambda' are incorrect \n")
@@ -57,15 +58,17 @@ smoothWE <- function(y, lambda, d = 2, t){
     # if(exists("x")) {
     #     D <- ddmat(x, d = 1)
     #     } else {
-    if(uni){
-        D <- ddMat(t)
+
+    if(nuni){
+        D <- ddMat(x = t, d = d)
+
     } else {
         D <- diff(E, differences = d)
     }
-     # in case of uniform sampling}
-        # }
 
     P <- t(D) %*% D
+
+
     # (E + lambda D' D)z = y, so:
     # z = solve(E = lambda D' D, y)
 
@@ -73,7 +76,7 @@ smoothWE <- function(y, lambda, d = 2, t){
     names(z) <- names(lambda)
     return(z)
 }
-
+NULL
 # todo: z in sparse notation ( C = chol())
 # todo: unequal timesteps WE
 # todo(optimal smoothings)
