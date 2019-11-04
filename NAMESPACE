@@ -2,11 +2,13 @@
 
 export(ddMat)
 export(plotBase)
+export(plotGrid)
 export(plotLambda)
 export(plotY)
 export(plotZ)
 export(prepInput)
 export(smoothWE)
 import(ggplot2)
+import(gridExtra)
 import(spam)
 importFrom(magrittr,"%>%")
