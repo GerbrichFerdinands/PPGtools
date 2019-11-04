@@ -1,15 +1,12 @@
 
 #' plotBase
 #'
-#' This function returns lambda input
+#' This function creates a blank canvas for plotting a PPG signal.
 #'
-#' @param pdat
-#' @return foundation of a plot
+#' @param pdat a list containing data, and other plot characteristics
+#' @return a ggplot object
 #'
 #' @details
-#'
-#' @section Warning:
-#' You can add sections if you like
 #'
 #'
 #' @examples
@@ -20,9 +17,6 @@
 plotBase <- function(pdat){
     # todo: add input characteristics
     p <- ggplot(pdat, aes(x = time)) +
-        labs(title = "Smoothing raw PPG data, d = ...",
-             x = "Time (s)",
-             y = "signal") +
         theme_classic()
 
     return(p)
@@ -42,9 +36,7 @@ NULL
 #'
 #' @details
 #'
-#' @section Warning:
-#' You can add sections if you like
-#'
+#' @section
 #'
 #' @examples
 
@@ -88,7 +80,7 @@ plotZ <- function(p, pdat){
 
     view <-
         p + scale_colour_manual("",
-                                breaks = colnames(z),
+                                breaks = colnames(pdat[,3:6]),
                                 values = c("l1" = "green", "l2" = "orange",
                                            "l3" = "purple", "l4" = "blue")) +
         scale_fill_discrete(name = "lambda",
@@ -121,7 +113,7 @@ NULL
 
 #'
 #' @export
-plotLambda <- function(time, y, z){ # todo change output WEsmooth
+plotLambda <- function(time, y, z, title){ # todo change output WEsmooth
     pdat <- cbind(time, y, z)
     pdat <- data.frame(pdat)
 
@@ -129,9 +121,47 @@ plotLambda <- function(time, y, z){ # todo change output WEsmooth
     p1 <- plotY(p, pdat)
     p2 <- plotZ(p1, pdat)
 
-    with(p2,
-         base + l1 + l2 + l3 + l4)
+    lambdaplot <- with(p2,
+                        base + l1 + l2 + l3 + l4) +
+        xlim(min(time-0.2), max(time)+0.2) +
+        ylim(min(y)-0.002, max(y)+0.002) +
+        labs(title = title,
+             x = "Time (s)",
+             y = "green signal")
     # todo make apply
+
+    return(lambdaplot)
+}
+
+NULL
+
+################################################################################
+
+#' plotGrid
+#'
+#' this function arranges grid of multiple plots
+#'
+#' @param plotlist list containing all plots to arrange
+#' @param ncol
+#' @param nrow
+#' @return grid of plots
+#'
+#' @details This function arranges smoothing plots based on different parameters.
+#'
+#' @section Warning:
+#' You can add sections if you like
+#'
+#'
+#' @examples
+
+#'
+#' @export
+
+plotGrid <- function(plotlist, ncol, nrow){
+    unlist(plotlist)
+    gridplot <- grid.arrange(plotlist, nrow = nrow, ncol = ncol) ## display plot
+
+    return(gridplot)
 }
 
 NULL

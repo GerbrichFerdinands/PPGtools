@@ -4,7 +4,7 @@
 \alias{plotLambda}
 \title{plotLambda}
 \usage{
-plotLambda(time, y, z)
+plotLambda(time, y, z, title)
 }
 \arguments{
 \item{z}{}
