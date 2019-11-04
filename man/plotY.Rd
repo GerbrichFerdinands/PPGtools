@@ -20,9 +20,8 @@ This function returns lambda input
 \details{
 
 }
-\section{Warning}{
-
-You can add sections if you like
+\section{}{
+NA
 }
 
 \examples{

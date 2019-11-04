@@ -14,9 +14,11 @@
 #' @keywords PPG
 #' @import spam
 #' @import ggplot2
+#' @import gridExtra
 #' @importFrom magrittr "%>%"
 NULL
 
+#-------------------------------------------------------------------------------
 
 #' smoothWE
 #'
