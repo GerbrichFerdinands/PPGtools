@@ -4,36 +4,36 @@
 \alias{smoothWE}
 \title{smoothWE}
 \usage{
-smoothWE(data, lambda, d = 2, t, nuni = FALSE)
+smoothWE(data, lambda, d = 2, uni = TRUE)
 }
 \arguments{
+\item{data}{a list (resulting from \code{\link{prepInput}}), containing:
+\itemize{
+\item Y - a 2 column matrix containing the time steps in the signal ("time") and the noisy series y to be smoothed;
+\item channel - Red, Green or Blue;
+\item time - the start and end point from the noisy series.
+}}
+
 \item{lambda}{tuning parameter(s), numeric or ?:1 matrix.}
 
 \item{d}{order of differences (d = 1, 2, 3, ...)}
 
-\item{t}{time steps (column vector) (sampling positions)}
-
-\item{y}{noisy series to be smoothed (column vector)}
+\item{uni}{logical indicator of if we equal timesteps are assumed.}
 }
 \value{
-a smooth series z (fit to y)
+a list containing
+\itemize{
+\item{z}{- matrix of smooth series z (fit to y)}
+\item{lambda}
+\item{difference}
+\item{uni}
+\item{data}
+}
 }
 \description{
 This function ..
 }
-\details{
-.
-}
-\section{Warning}{
-
-You can add sections if you like
-}
-
 \examples{
 
-\dontrun{fancySum("A", list(c=51))}
 
-}
-\seealso{
-\code{\link{Reduce}}
 }

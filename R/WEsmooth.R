@@ -27,16 +27,24 @@ NULL
 #'
 #' This function ..
 #'
-#' @param data a list (resulting from \code{\link{prepInput}}), containing: Y,
-#' a 2 column matrix containing the time steps in the signal ("time") and the noisy series y to be smoothed;
-#' channel: Red, Green or Blue,
-#' and time: the start and end point from the noisy series.
-#'
+#' @param data a list (resulting from \code{\link{prepInput}}), containing:
+#' \itemize{
+#' \item Y - a 2 column matrix containing the time steps in the signal ("time") and the noisy series y to be smoothed;
+#' \item channel - Red, Green or Blue;
+#' \item time - the start and end point from the noisy series.
+#' }
 #' @param lambda tuning parameter(s), numeric or ?:1 matrix.
 #' @param d order of differences (d = 1, 2, 3, ...)
 #' @param uni logical indicator of if we equal timesteps are assumed.
 #'
-#' @return a smooth series z (fit to y)
+#' @return a list containing
+#' \itemize{
+#' \item{z}{- matrix of smooth series z (fit to y)}
+#' \item{lambda}
+#' \item{difference}
+#' \item{uni}
+#' \item{data}
+#' }
 #'
 #' @examples
 #'
