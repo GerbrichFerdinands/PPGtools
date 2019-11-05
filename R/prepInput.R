@@ -1,3 +1,5 @@
+
+
 #' prepInput
 #'
 #' .
@@ -26,7 +28,13 @@ prepInput <- function(data, channel = c("Red", "Green", "Blue"),
     t <- data[, 1]
     sel <- t > tstart & t < tstop
 
-    # select rows and columns
-    output <- data[sel, c("time", channel)]
+    output <- list(Y = data[sel, c("time", channel)],
+                   channel = channel,
+                   time = c(tstart, tstop))
+
+    return(output)
 }
+
+NULL
+
 

@@ -6,7 +6,10 @@
 \alias{PPGtools-package}
 \title{PPGtools}
 \description{
-This package extract pulse waves from noisy PPG recordings
+This package provides a toolbox for analyzing noisy photoplethysmography (PPG)
+data. The package contains functions for filtering, visualization and feature
+extraction from noisy PPG data. The package contains example PPG data
+(\code{\link{rec}}).
 }
 \section{Core function}{
 

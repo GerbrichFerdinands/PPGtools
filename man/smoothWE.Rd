@@ -4,16 +4,16 @@
 \alias{smoothWE}
 \title{smoothWE}
 \usage{
-smoothWE(y, lambda, d = 2, t, nuni = FALSE)
+smoothWE(data, lambda, d = 2, t, nuni = FALSE)
 }
 \arguments{
-\item{y}{noisy series to be smoothed (column vector)}
-
 \item{lambda}{tuning parameter(s), numeric or ?:1 matrix.}
 
 \item{d}{order of differences (d = 1, 2, 3, ...)}
 
 \item{t}{time steps (column vector) (sampling positions)}
+
+\item{y}{noisy series to be smoothed (column vector)}
 }
 \value{
 a smooth series z (fit to y)
