@@ -1,6 +1,9 @@
 #' PPGtools
 #'
-#' This package extract pulse waves from noisy PPG recordings
+#' This package provides a toolbox for analyzing noisy photoplethysmography (PPG)
+#' data. The package contains functions for filtering, visualization and feature
+#' extraction from noisy PPG data. The package contains example PPG data
+#' (\code{\link{rec}}).
 #'
 #' @section Core function:
 #' The core function can be found at \code{\link{smoothWE}}
@@ -24,63 +27,60 @@ NULL
 #'
 #' This function ..
 #'
-#' @param t time steps (column vector) (sampling positions)
-#' @param y noisy series to be smoothed (column vector)
+#' @param data a list (resulting from \code{\link{prepInput}}), containing: Y,
+#' a 2 column matrix containing the time steps in the signal ("time") and the noisy series y to be smoothed;
+#' channel: Red, Green or Blue,
+#' and time: the start and end point from the noisy series.
+#'
 #' @param lambda tuning parameter(s), numeric or ?:1 matrix.
 #' @param d order of differences (d = 1, 2, 3, ...)
+#' @param uni logical indicator of if we equal timesteps are assumed.
 #'
 #' @return a smooth series z (fit to y)
 #'
-#' @details .
-#'
-#' @section Warning:
-#' You can add sections if you like
-#'
-#' @seealso \code{\link{Reduce}}
-#'
 #' @examples
-
 #'
-#' \dontrun{fancySum("A", list(c=51))}
 #'
 #' @export
-smoothWE <- function(y, lambda, d = 2, t, nuni = FALSE){
+smoothWE <- function(data, lambda, d = 2, uni = TRUE){
 # maybe default for t = 1:length(y) (is this possible in r function input?)
     # check if input is correct
     if (is.null(dim(lambda))) lambda <- matrix(lambda)
     if (ncol(lambda) != 1) stop("dimensions of 'lambda' are incorrect \n")
 
-    m <- length(y)
+    # extracting input from data list
+    channel <- data$channel
+    y <- data$Y[,channel]
+    t <- data$Y[,"time"]
+
+
     # E = identity matrix
+    m <- length(y)
     E <- diag.spam(m)
 
     # D = differences matrix, differences indicating the order of difference
-
-    #D <- ddMat(E, differences = d)
-    # if(exists("x")) {
-    #     D <- ddmat(x, d = 1)
-    #     } else {
-
-    if(nuni){
-        D <- ddMat(x = t, d = d)
-
-    } else {
+    if(uni){
         D <- diff(E, differences = d)
+    } else {
+        D <- ddMat(x = t, d = d)
     }
 
     P <- t(D) %*% D
 
-
     # (E + lambda D' D)z = y, so:
     # z = solve(E = lambda D' D, y)
 
+    # smooth raw data y with given lambda tuning parameter(s)
     z <- apply(lambda, 1, function(x) solve(E + x * P, y))
     names(z) <- names(lambda)
-    return(z)
+
+    # prepare output
+    output <- list(z = z, lambda = lambda, difference = d, uni = uni)
+    output <- c(data, output)
+
+    return(output)
 }
 NULL
 # todo: z in sparse notation ( C = chol())
-# todo: unequal timesteps WE
 # todo(optimal smoothings)
-# done(column names for z)
 
