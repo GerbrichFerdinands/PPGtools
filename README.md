@@ -1,16 +1,16 @@
 # PPGtools
 
 This is still a private GitHub repository.
-To install ` PPGtools` on your computer, a token needs to be generated. 
+To install ` PPGtools` on your computer, a token has to be generated. 
 Please follow the instructions from the `devtools` package: 
 
-```
-# To install from a private repo, use auth_token with a token
-# from https://github.com/settings/tokens. You only need the
-# repo scope. Best practice is to save your PAT in env var called
-# GITHUB_PAT.
-```
-Then, 
+
+> To install from a private repo, use auth_token with a token
+> from https://github.com/settings/tokens. You only need the
+> repo scope. Best practice is to save your PAT in env var called
+> GITHUB_PAT.
+
+After generating the token, the package can be installed. 
 ```r
 # generated token 
 token <- "GITHUB_PAT"
