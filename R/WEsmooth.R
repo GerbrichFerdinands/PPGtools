@@ -61,6 +61,7 @@ smoothWE <- function(data, lambda, d = 2, uni = TRUE){
     y <- data$Y[,channel]
     t <- data$Y[,"time"]
 
+    names(lambda) <- paste0('lambda_', lambda) # nice for plot legends
 
     # E = identity matrix
     m <- length(y)
@@ -80,8 +81,7 @@ smoothWE <- function(data, lambda, d = 2, uni = TRUE){
 
     # smooth raw data y with given lambda tuning parameter(s)
     z <- apply(lambda, 1, function(x) solve(E + x * P, y))
-    names(z) <- names(lambda)
-
+    colnames(z) <- paste0('l', 1:length(lambda))
     # prepare output
     output <- list(z = z, lambda = lambda, difference = d, uni = uni)
     output <- c(data, output)

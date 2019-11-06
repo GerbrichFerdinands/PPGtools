@@ -113,7 +113,13 @@ NULL
 
 #'
 #' @export
-plotLambda <- function(time, y, z, title){ # todo change output WEsmooth
+plotLambda <- function(data, title){ # todo change output WEsmooth
+    # extract components from list.
+    time <- data$Y[,1]
+    channel <- data$channel
+    y <- data$Y[,channel]
+    z <- data$z
+
     pdat <- cbind(time, y, z)
     pdat <- data.frame(pdat)
 
