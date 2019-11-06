@@ -30,7 +30,7 @@ lambda <-10^(seq(1, 7, 2))
 zdata <- smoothWE(data, lambda, d=2, uni = TRUE)
 
 # plot results
-title <- "Uniform sampling assumed, d=2, lambda = 10, 10^3, 10^5"
+title <- "Uniform sampling assumed, d=2, lambda = 10, 10^3, 10^5, 10^7"
 plotLambda(zdata, title)
 
 ```
