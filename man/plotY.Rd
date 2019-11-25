@@ -12,7 +12,7 @@ plotY(p, pdat)
 \item{pdat}{plotdata}
 }
 \value{
-
+p
 }
 \description{
 This function returns lambda input

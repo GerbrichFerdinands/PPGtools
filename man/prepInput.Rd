@@ -4,8 +4,12 @@
 \alias{prepInput}
 \title{prepInput}
 \usage{
-prepInput(data, channel = c("Red", "Green", "Blue"), tstart = 20,
-  tstop = 40)
+prepInput(
+  raw_data,
+  channel = c("Red", "Green", "Blue"),
+  tstart = 20,
+  tstop = 40
+)
 }
 \arguments{
 \item{tstop}{}

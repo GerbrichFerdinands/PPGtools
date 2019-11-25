@@ -6,8 +6,11 @@
 \usage{
 plotZ(p, pdat)
 }
+\arguments{
+\item{pdat}{}
+}
 \value{
-pdat
+list of plots
 }
 \description{
 This function plots the smoothed values z.
