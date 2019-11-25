@@ -18,7 +18,7 @@
 \url{http://www.heartrateapp.com/}
 }
 \usage{
-rec
+data(rec)
 }
 \description{
 A dataset containing one example PPG recording of 90 seconds
