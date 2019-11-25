@@ -32,7 +32,8 @@ NULL
 #'
 #' @param p plot
 #' @param pdat plotdata
-#' @return
+#'
+#' @return p
 #'
 #' @details
 #'
@@ -57,7 +58,9 @@ NULL
 #' This function plots the smoothed values z.
 #'
 #' @param p
-#' @return pdat
+#' @param pdat
+#'
+#' @return list of plots
 #'
 #' @details
 #'
@@ -97,13 +100,13 @@ NULL
 #'
 #' This function plots the smoothed values z.
 #'
-#' @param time
-#' @param y
+#' @param raw_signal
 #' @param z
+#' @param title
 #'
 #' @return plot
 #'
-#' @details
+#' @details todo
 #'
 #' @section Warning:
 #' You can add sections if you like
@@ -113,9 +116,8 @@ NULL
 
 #'
 #' @export
-plotLambda <- function(time, y, z, title){ # todo change output WEsmooth
-    pdat <- cbind(time, y, z)
-    pdat <- data.frame(pdat)
+plotLambda <- function(raw_signal, z, title){ # todo change output WEsmooth
+    pdat <- cbind(raw_signal , z)
 
     p <- plotBase(pdat)
     p1 <- plotY(p, pdat)
@@ -128,8 +130,8 @@ plotLambda <- function(time, y, z, title){ # todo change output WEsmooth
         labs(title = title,
              x = "Time (s)",
              y = "green signal")
-    # todo make apply
 
+    # todo make apply
     return(lambdaplot)
 }
 

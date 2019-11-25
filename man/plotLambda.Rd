@@ -4,10 +4,10 @@
 \alias{plotLambda}
 \title{plotLambda}
 \usage{
-plotLambda(time, y, z, title)
+plotLambda(raw_signal, z, title)
 }
 \arguments{
-\item{z}{}
+\item{title}{}
 }
 \value{
 plot
@@ -16,7 +16,7 @@ plot
 This function plots the smoothed values z.
 }
 \details{
-
+todo
 }
 \section{Warning}{
 

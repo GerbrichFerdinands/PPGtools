@@ -1,8 +1,8 @@
 #' PPGtools
 #'
 #' This package provides a toolbox for analyzing noisy photoplethysmography (PPG)
-#' data. The package contains functions for filtering, visualization and feature
-#' extraction from noisy PPG data. The package contains example PPG data
+#' raw_signal. The package contains functions for filtering, visualization and feature
+#' extraction from noisy PPG raw_signal. The package contains example PPG raw_signal
 #' (\code{\link{rec}}).
 #'
 #' @section Core function:
@@ -15,9 +15,10 @@
 #' @docType package
 #' @name PPGtools
 #' @keywords PPG
+#'
 #' @import spam
 #' @import ggplot2
-#' @import gridExtra
+#' @import dplyr
 #' @importFrom magrittr "%>%"
 NULL
 
@@ -27,7 +28,7 @@ NULL
 #'
 #' This function ..
 #'
-#' @param data a list (resulting from \code{\link{prepInput}}), containing:
+#' @param raw_signal a list (resulting from \code{\link{prepInput}}), containing:
 #' \itemize{
 #' \item Y - a 2 column matrix containing the time steps in the signal ("time") and the noisy series y to be smoothed;
 #' \item channel - Red, Green or Blue;
@@ -43,24 +44,26 @@ NULL
 #' \item{lambda}
 #' \item{difference}
 #' \item{uni}
-#' \item{data}
+#' \item{raw_signal}
 #' }
 #'
 #' @examples
 #'
 #'
 #' @export
-smoothWE <- function(data, lambda, d = 2, uni = TRUE){
-# maybe default for t = 1:length(y) (is this possible in r function input?)
+smoothWE <- function(raw_signal, lambda, d = 2, uni = TRUE){
+
     # check if input is correct
     if (is.null(dim(lambda))) lambda <- matrix(lambda)
     if (ncol(lambda) != 1) stop("dimensions of 'lambda' are incorrect \n")
 
-    # extracting input from data list
-    channel <- data$channel
-    y <- data$Y[,channel]
-    t <- data$Y[,"time"]
+    y <- raw_signal[,2]
+    t <- raw_signal$time
 
+    # check distribution of timesteps
+    steps <- diff(t)
+    tol <- 0.03
+    if(abs(max(steps) - min(steps)) > tol) warning("Timesteps are unequal")
 
     # E = identity matrix
     m <- length(y)
@@ -78,15 +81,12 @@ smoothWE <- function(data, lambda, d = 2, uni = TRUE){
     # (E + lambda D' D)z = y, so:
     # z = solve(E = lambda D' D, y)
 
-    # smooth raw data y with given lambda tuning parameter(s)
+    # smooth raw raw_signal y with given lambda tuning parameter(s)
     z <- apply(lambda, 1, function(x) solve(E + x * P, y))
     names(z) <- names(lambda)
 
     # prepare output
-    output <- list(z = z, lambda = lambda, difference = d, uni = uni)
-    output <- c(data, output)
-
-    return(output)
+    return(z)
 }
 NULL
 # todo: z in sparse notation ( C = chol())
