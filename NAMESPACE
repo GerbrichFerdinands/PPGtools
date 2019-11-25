@@ -2,7 +2,6 @@
 
 export(ddMat)
 export(plotBase)
-export(plotGrid)
 export(plotLambda)
 export(plotY)
 export(plotZ)
