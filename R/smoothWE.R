@@ -60,10 +60,13 @@ smoothWE <- function(raw_signal, lambda, d = 2, uni = TRUE){
     y <- raw_signal[,2]
     t <- raw_signal$time
 
+
     # check distribution of timesteps
     steps <- diff(t)
     tol <- 0.03
     if(abs(max(steps) - min(steps)) > tol) warning("Timesteps are unequal")
+
+  
 
     # E = identity matrix
     m <- length(y)
@@ -83,12 +86,10 @@ smoothWE <- function(raw_signal, lambda, d = 2, uni = TRUE){
 
     # smooth raw raw_signal y with given lambda tuning parameter(s)
     z <- apply(lambda, 1, function(x) solve(E + x * P, y))
-    names(z) <- names(lambda)
-
+    colnames(z) <- paste0('l', 1:length(lambda))
     # prepare output
     return(z)
 }
 NULL
 # todo: z in sparse notation ( C = chol())
 # todo(optimal smoothings)
-
