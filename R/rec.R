@@ -2,6 +2,9 @@
 #'
 #' A dataset containing one example PPG recording of 90 seconds
 #'
+#' @docType data
+#'
+#' @usage data(rec)
 #'
 #' @format A data frame with 3200 rows and 7 variables:
 #' \describe{
@@ -14,6 +17,5 @@
 #'   \item{Z}{movement on z-axis}
 #' }
 #' @source \url{http://www.heartrateapp.com/}
-#'
 
 "rec"
