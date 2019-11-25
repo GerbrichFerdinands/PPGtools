@@ -15,5 +15,5 @@
 #' }
 #' @source \url{http://www.heartrateapp.com/}
 #'
-#' @export
+
 "rec"
