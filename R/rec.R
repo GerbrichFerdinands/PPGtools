@@ -14,4 +14,6 @@
 #'   \item{Z}{movement on z-axis}
 #' }
 #' @source \url{http://www.heartrateapp.com/}
+#'
+#' @export
 "rec"
