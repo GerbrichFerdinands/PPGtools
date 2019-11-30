@@ -16,7 +16,7 @@ After generating the token, the package can be installed.
 token <- "GITHUB_PAT"
 
 # install package from private GitHub repository
-devtools::install_github(GerbrichFerdinands/PPGtools, auth_token = token, build = TRUE)
+devtools::install_github("GerbrichFerdinands/PPGtools", auth_token = token, build = TRUE)
 
 ```
 
