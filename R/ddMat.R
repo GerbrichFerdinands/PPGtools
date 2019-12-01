@@ -19,18 +19,19 @@
 
 ddMat <- function(x, d){
     m <- length(x)
+
     # differences matrix D
     E <- diag.spam(m)
     D <- diff(E, differences = d)
 
-    #if(nuni){
-        # delta x
-        dx <- diff(x, differences = d)
-        # V = m-1 by m-1 matrix with 1/delta x on its diagonal.
-        V <- diag.spam(1/dx)
-        # matrix multiplication VD
-        D <- V%*%D
-    #}
+    # compute timesteps differences matrix.
+    dx <- diff(x, differences = d)
+    if(sum(dx) == 0) return(D)
+
+    # V = m-1 by m-1 matrix with 1/delta x on its diagonal.
+    V <- diag.spam(1/dx)
+    # matrix multiplication VD
+    D <- V%*%D
 
     return(D)
 }

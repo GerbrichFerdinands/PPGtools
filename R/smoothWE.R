@@ -71,13 +71,13 @@ smoothWE <- function(raw_signal, lambda, d = 2, uni = TRUE, cv = FALSE){
     E <- diag.spam(m)
 
     # D = differences matrix, differences indicating the order of difference
-    if(uni){
-        D <- diff(E, differences = d)
-    } else {
+    # if(uni){
+    #     D <- diff(E, differences = d)
+    # } else {
         D <- ddMat(x = t, d = d)
-    }
+    # }
 
-    P <- t(D) %*% D
+    #P <- t(D) %*% D
 
     # (E + lambda D' D)z = y, so:
     # z = solve(E = lambda D' D, y)
