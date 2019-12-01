@@ -4,7 +4,7 @@
 \alias{smoothWE}
 \title{smoothWE}
 \usage{
-smoothWE(raw_signal, lambda, d = 2, uni = TRUE)
+smoothWE(raw_signal, lambda, d = 2, uni = TRUE, cv = FALSE)
 }
 \arguments{
 \item{raw_signal}{a list (resulting from \code{\link{prepInput}}), containing:

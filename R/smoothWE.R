@@ -51,7 +51,7 @@ NULL
 #'
 #'
 #' @export
-smoothWE <- function(raw_signal, lambda, d = 2, uni = TRUE){
+smoothWE <- function(raw_signal, lambda, d = 2, uni = TRUE, cv = FALSE){
 
     # check if input is correct
     if (is.null(dim(lambda))) lambda <- matrix(lambda)
@@ -64,9 +64,7 @@ smoothWE <- function(raw_signal, lambda, d = 2, uni = TRUE){
     # check distribution of timesteps
     steps <- diff(t)
     tol <- 0.03
-    if(abs(max(steps) - min(steps)) > tol) warning("Timesteps are unequal")
-
-  
+    if(abs(max(steps) - min(steps)) > tol) warning("Timesteps are unequal \n")
 
     # E = identity matrix
     m <- length(y)
@@ -87,8 +85,44 @@ smoothWE <- function(raw_signal, lambda, d = 2, uni = TRUE){
     # smooth raw raw_signal y with given lambda tuning parameter(s)
     z <- apply(lambda, 1, function(x) solve(E + x * P, y))
     colnames(z) <- paste0('l', 1:length(lambda))
-    # prepare output
-    return(z)
+
+    if(!cv) return(z)
+
+
+    # cross-validation ---------------------------------------------------------
+    if(m<=100) {
+      H <- solve(E + lambda * P)
+      h <- diag(H)
+    } else {
+      n <- 100
+      E1 <- diag.spam(n)
+      g <- round(((1:n) -1) * (m-1) / (n-1) + 1)
+      D1 <- ddMat(t[g], d)
+      lambda1 <- lambda * (n/m) ^ 2*d # lambda = 1 value
+
+      H1 <- solve(E1 + lambda1 * (t(D1) %*% D1))
+      h1 <- diag(H1)
+
+
+      u <- matrix(0, nrow = m, ncol = 1)
+      k <- floor(m/2)
+      k1 <- floor(n/2)
+      u[k] <- 1
+
+      v <- solve(E + lambda * P, u)
+      hk <- v[k]
+      f <- round((t(1:m)-1) * (n-1)/(m-1) +1)
+
+      # diagonal of hat matrix
+      h <- h1[f] * v[k] / h1[k1]
+    }
+
+    # cve
+    r <- (y-z) / (1-h)
+    cve <- sqrt(t(r) %*% r / m)
+
+  return(list(z = z, cve = cve))
+
 }
 NULL
 # todo: z in sparse notation ( C = chol())

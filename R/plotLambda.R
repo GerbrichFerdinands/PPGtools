@@ -77,10 +77,10 @@ NULL
 plotZ <- function(p, pdat){
 
     # todo: use apply
-    l1 <- geom_line(aes(y = pdat$lambda_1, colour = "l1"), size = 0.5)
-    l2 <- geom_line(aes(y = pdat$lambda_2, colour = "l2"), size = 0.5)
-    l3 <-  geom_line(aes(y = pdat$lambda_3, colour = "l3"), size = 0.5)
-    l4 <-  geom_line(aes(y = pdat$lambda_4, colour = "l4"), size = 0.5)
+    l1 <- geom_line(aes(y = pdat$l1, colour = "l1"), size = 0.5)
+    l2 <- geom_line(aes(y = pdat$l2, colour = "l2"), size = 0.5)
+    l3 <-  geom_line(aes(y = pdat$l3, colour = "l3"), size = 0.5)
+    l4 <-  geom_line(aes(y = pdat$l4, colour = "l4"), size = 0.5)
 
     view <-
         p + scale_colour_manual("",
