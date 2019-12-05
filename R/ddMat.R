@@ -19,21 +19,20 @@
 
 ddMat <- function(x, d){
     m <- length(x)
-    #if(sum(dx) == 0){
-    if(d == 0){
+    if(sum(dx) == 0){
+    #if(d == 0){
         # differences matrix D
-        # E <- diag.spam(m)
-        # D <- diff(E, differences = d)
-        D <- diag.spam(m)
+        E <- diag.spam(m)
+        D <- diff(E, differences = d)
+        #D <- diag.spam(m)
         return(D)
     } else {
         # V = m-1 by m-1 matrix with 1/delta x on its diagonal.
         V <- diag.spam(m-1)
         diag(V) <- 1/diff(t, differences = d)
-
         # matrix multiplication VD
-        #D <- V %*% ddMat(x, d-1)
-        D <- V %*% diff(ddMat(x, d-1))
+        D <- V %*% D
+        #D <- V %*% diff(ddMat(x, d-1))
         return(D)
     }
 }
