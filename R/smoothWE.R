@@ -105,8 +105,8 @@ smoothWE <- function(raw_signal, lambda, d = 2, uni = TRUE, cv = FALSE){
 
 
       u <- matrix(0, nrow = m, ncol = 1)
-      k <- floor(m/2)
-      k1 <- floor(n/2)
+      k <- floor(m/2) # halfpoint m
+      k1 <- floor(n/2) # halfpoint of n (50)
       u[k] <- 1
 
       v <- solve(E + lambda * P, u)
