@@ -74,7 +74,7 @@ smoothWE <- function(raw_signal, lambda, d = 2, uni = TRUE, cv = FALSE){
     if(uni){
         D <- diff(E, differences = d)
     } else {
-        D <- ddMat(x = t, d = d)
+        D <- ddMat(x = raw_signal$time_scaled, d = d)
     }
 
     P <- t(D) %*% D
@@ -86,44 +86,43 @@ smoothWE <- function(raw_signal, lambda, d = 2, uni = TRUE, cv = FALSE){
     z <- apply(lambda, 1, function(x) solve(E + x * P, y))
     colnames(z) <- paste0('l', 1:length(lambda))
 
-    if(!cv) return(z)
-
-
-    # cross-validation ---------------------------------------------------------
-    if(m<=100) {
-      H <- solve(E + lambda * P)
-      h <- diag(H)
+    if(!cv){
+      return(z)
     } else {
-      n <- 100
-      E1 <- diag.spam(n)
-      g <- round(((1:n) -1) * (m-1) / (n-1) + 1)
-      D1 <- ddMat(t[g], d)
-      lambda1 <- lambda * (n/m) ^ 2*d # lambda = 1 value
+      # cross-validation ---------------------------------------------------------
+      if(m<=100) {
+        H <- solve(E + lambda * P)
+        h <- diag(H)
+      } else {
+        n <- 100
+        E1 <- diag.spam(n)
+        g <- round(((1:n) -1) * (m-1) / (n-1) + 1)
+        D1 <- ddMat(t[g], d)
+        lambda1 <- lambda * (n/m) ^ 2*d # lambda = 1 value
 
-      H1 <- solve(E1 + lambda1 * (t(D1) %*% D1))
-      h1 <- diag(H1)
+        H1 <- solve(E1 + lambda1 * (t(D1) %*% D1))
+        h1 <- diag(H1)
 
 
-      u <- matrix(0, nrow = m, ncol = 1)
-      k <- floor(m/2) # halfpoint m
-      k1 <- floor(n/2) # halfpoint of n (50)
-      u[k] <- 1
+        u <- matrix(0, nrow = m, ncol = 1)
+        k <- floor(m/2) # halfpoint m
+        k1 <- floor(n/2) # halfpoint of n (50)
+        u[k] <- 1
 
-      v <- solve(E + lambda * P, u)
-      hk <- v[k]
-      f <- round((t(1:m)-1) * (n-1)/(m-1) +1)
+        v <- solve(E + lambda * P, u)
+        hk <- v[k]
+        f <- round((t(1:m)-1) * (n-1)/(m-1) +1)
 
-      # diagonal of hat matrix
-      h <- h1[f] * v[k] / h1[k1]
+        # diagonal of hat matrix
+        h <- h1[f] * v[k] / h1[k1]
+      }
+
+      # cve
+      r <- (y-z) / (1-h)
+      cve <- sqrt(t(r) %*% r / m)
+
+      return(list(z = z, cve = cve))
     }
-
-    # cve
-    r <- (y-z) / (1-h)
-    cve <- sqrt(t(r) %*% r / m)
-
-  return(list(z = z, cve = cve))
-
 }
 NULL
-# todo: z in sparse notation ( C = chol())
-# todo(optimal smoothings)
+

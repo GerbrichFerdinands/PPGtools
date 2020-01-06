@@ -86,9 +86,9 @@ plotZ <- function(p, pdat){
         p + scale_colour_manual("",
                                 breaks = colnames(pdat[,3:6]),
                                 values = c("l1" = "green", "l2" = "orange",
-                                           "l3" = "purple", "l4" = "blue")) +
-        scale_fill_discrete(name = "lambda",
-                            labels = names(lambda))
+                                           "l3" = "purple", "l4" = "blue")) #+
+        # scale_fill_discrete(name = "lambda",
+        #                     labels = names(lambda))
 
     output <- list(base = view, l1=l1, l2=l2, l3=l3, l4=l4)
     return(output)
@@ -130,7 +130,7 @@ plotLambda <- function(raw_signal, z, title){
         # ylim(min(y)-0.002, max(y)+0.002) +
         labs(title = title,
              x = "Time (s)",
-             y = "green signal")
+             y = "Green signal")
 
     # todo make apply
     return(lambdaplot)

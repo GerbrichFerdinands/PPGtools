@@ -3,6 +3,7 @@
 export(ddMat)
 export(plotBase)
 export(plotLambda)
+export(plotSmooth)
 export(plotY)
 export(plotZ)
 export(prepInput)
