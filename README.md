@@ -1,27 +1,15 @@
 # PPGtools
+` PPGtools` can be installed with the `devtools` package:
 
-This is still a private GitHub repository.
-To install ` PPGtools` on your computer, a token has to be generated.
-Please follow the instructions from the `devtools` package:
-
-
-> To install from a private repo, use auth_token with a token
-> from https://github.com/settings/tokens. You only need the
-> repo scope. Best practice is to save your PAT in env var called
-> GITHUB_PAT.
-
-After generating the token, the package can be installed.
 ```r
-# generated token
-token <- "GITHUB_PAT"
-
 # install package from private GitHub repository
-devtools::install_github("GerbrichFerdinands/PPGtools", auth_token = token, build = TRUE)
-
+devtools::install_github("GerbrichFerdinands/PPGtools", build = TRUE)
 ```
 
 ## Example
 ```r
+library(PPGtools)
+
 # prepare data
 raw_signal <- prepInput(rec, channel = "Green", tstart = 20, tstop = 40)
 
@@ -35,7 +23,6 @@ title <- "Uniform sampling assumed, d=2, lambda = 10, 10^3, 10^5, 10^7"
 plotLambda(raw_signal = raw_signal, z = z, title = title)
 
 ```
-
 
 ## Package structure
 ![](flowchart.png)
