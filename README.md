@@ -2,7 +2,7 @@
 ` PPGtools` can be installed with the `devtools` package:
 
 ```r
-# install package from private GitHub repository
+# install package from GitHub repository
 devtools::install_github("GerbrichFerdinands/PPGtools", build = TRUE)
 ```
 
